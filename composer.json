@@ -38,6 +38,7 @@
 		"bamarni/composer-bin-plugin": "^1.8",
 		"barryvdh/laravel-ide-helper": "^2.12",
 		"fakerphp/faker": "^1.9",
+		"laravel/breeze": "^1.14",
 		"laravel/pint": "^1.0",
 		"laravel/sail": "^1.0",
 		"laravel/telescope": "^4.9",
