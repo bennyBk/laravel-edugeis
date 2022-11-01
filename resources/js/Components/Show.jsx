@@ -1,7 +1,7 @@
 import React from 'react';
+import TicketType from '@/Components/TicketType';
 
 export default function Show({ show }) {
-    console.log(show);
     return (
         <div className="p-6 flex space-x-2">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-600 -scale-x-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -11,12 +11,14 @@ export default function Show({ show }) {
                 <div className="flex justify-between items-center">
                     <div>
                         <span className="text-gray-800">{show.title}</span>
+                        <small className="ml-2 text-sm text-gray-600">{show.place}</small>
                         <small className="ml-2 text-sm text-gray-600">{new Date(show.date).toLocaleString()}</small>
+                        <small className="ml-2 text-sm text-red-600">{show.available_seats}</small>
                     </div>
                 </div>
                 <p className="mt-4 text-lg text-gray-900">{show.description}</p>
 
-                {show.ticket_types.map((ticketType)=> <div>{ticketType.type}</div>)}
+                {show.ticket_types.map(ticketType=> <TicketType ticketType={ticketType} >{ticketType.type}</TicketType>)}
             </div>
         </div>
     );
