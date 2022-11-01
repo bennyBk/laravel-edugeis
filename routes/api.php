@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Resources\TicketResourceCollection;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -17,10 +18,18 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+/* utilisateur courant (auth) */
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+// In   scription
+Route::post('/register', [AuthController::class, 'register']);
+//
+Route::post('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
+Route::post('/login', function (){
+    echo 'login';
+});
+
 Route::apiResources([
     'grades' => '\App\Http\Controllers\GradeController',
     'shows' => '\App\Http\Controllers\ShowController',
@@ -29,3 +38,4 @@ Route::apiResources([
     'users' => '\App\Http\Controllers\UserController',
 ]);
 Route::get("shows/{id}/ticket_types","App\\Http\\Controllers\\ShowController@getTicketTypes");
+;
