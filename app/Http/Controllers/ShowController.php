@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateShowRequest;
 use App\Http\Resources\ShowResource;
 use App\Models\Show;
 use App\Models\Ticket;
+use Inertia\Inertia;
 
 class ShowController extends Controller
 {
@@ -18,6 +19,9 @@ class ShowController extends Controller
     public function index()
     {
         $shows = Show::with('ticketTypes')->get();
+        return Inertia::render('Shows/Index', [
+            'shows' => $shows
+        ]);
         return ShowResource::collection($shows);
     }
 
