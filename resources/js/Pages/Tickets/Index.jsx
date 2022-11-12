@@ -33,14 +33,18 @@ export default function Index() {
     // const groupByCategory = user.tickets.groupBy(ticket => {
     //     return ticket.show;
     // });
-    const ticketsByShow = user.tickets.reduce((group,ticket)=>{
-        const {show_id,show} = ticket;
+    const ticketsByShow = user.tickets.reduce((group, ticket) => {
+        const {show_id, show} = ticket;
         // console.log(show);
         group[show_id] = group[show_id] ?? {...show};
         group[show_id].tickets = group[show_id].tickets ?? [];
         group[show_id].tickets.push(ticket);
         return group;
-    })
+    }, [])
+        // le fait de créer un tableau vide au départ ajoute des empty slots ? (cf :
+        // console.log(ticketsByShow);
+        .filter(a => a);
+
     // console.log(ticketsByShow);
     // return;
 
@@ -49,16 +53,17 @@ export default function Index() {
 
     // console.log(ticketsByShow);
     // TODO renvoit un tableau de tableaux qui créée l'arbo : spectacle / type de ticket / ticket.
-    const r = ticketsByShow.map(show => {
-        // console.log(show);
+    // const r = ticketsByShow.map(show => {
+    // console.log(show);
 
-        // return groupBy1(show,"ticket_type_id");
-        return show.reduce((group, ticket) => {
-            const {ticket_type_id,ticket_type} = ticket;
+    // return groupBy1(show,"ticket_type_id");
+    const ticketsByTTandShow = ticketsByShow.map(show=> {
+        return show.tickets.reduce((group, ticket) => {
+            const {ticket_type_id, ticket_type} = ticket;
             // const {...ttprops} = ticket_type;
             // console.log(ticket_type_id);
             // const id = ticket.ticket_type_id;
-            group[ticket_type_id] = group[ticket_type_id] ?? {ticket_type};
+            group[ticket_type_id] = group[ticket_type_id] ?? {...ticket_type};
             group[ticket_type_id].tickets = group[ticket_type_id].tickets ?? [];
             // group[ticket_type_id].ticket_type = group[ticket_type_id].ticket_type ?? ticket_type;
             // console.log(group[ticket_type_id].ticket_type);
@@ -68,14 +73,14 @@ export default function Index() {
             // show[{ticket.ticket_type_id}]
             // }.push(ticket);
             return group;
-        },[])
+        }, []).filter(a=>a)
 
-        // groupBy1(show,'ticket_type_id');
-        // console.log(show);
+    });
+    console.log(ticketsByTTandShow);
+    // groupBy1(show,'ticket_type_id');
+    // console.log(show);
 
-    })
     // console.log(ticket))
-    console.log(r);
     // console.log(groupBy2);
     return;
     const showTicketsByTicketType = ticketsByShow.map(show => {
