@@ -4,6 +4,7 @@ import InputError from '@/Components/InputError';
 import PrimaryButton from '@/Components/PrimaryButton';
 import {useForm, Head, usePage} from '@inertiajs/inertia-react';
 import UserShow from "@/Components/UserShow";
+import Show from "@/Components/Show";
 
 export default function Index() {
     const groupBy1 = function (xs, key) {
@@ -19,7 +20,9 @@ export default function Index() {
     // console.log(usePage().props);
     const {auth} = usePage().props;
     const {user} = auth;
-    /*const {tickets} = usePage().props;*/
+
+    // console.log(user);
+
     // const groupBy2 = auth.user.tickets.reduce((group, ticket) => {
     //     const {show_id} = ticket;
     //     // const {ticket_types} = ticket;
@@ -33,6 +36,7 @@ export default function Index() {
     // const groupByCategory = user.tickets.groupBy(ticket => {
     //     return ticket.show;
     // });
+    // retourne [ {...show, tickets:[] } ]
     const ticketsByShow = user.tickets.reduce((group, ticket) => {
         const {show_id, show} = ticket;
         // console.log(show);
@@ -51,14 +55,19 @@ export default function Index() {
     // renvoit un tableau de tableaux qui regroupent les tickets par spectacle.
     // const ticketsByShow = groupBy1(user.tickets, 'show_id');
 
-    // console.log(ticketsByShow);
+    // console.log(ticketsByShow); // show / tickets
+    // return;
     // TODO renvoit un tableau de tableaux qui créée l'arbo : spectacle / type de ticket / ticket.
     // const r = ticketsByShow.map(show => {
     // console.log(show);
 
     // return groupBy1(show,"ticket_type_id");
+
+    //retourne ??
     const ticketsByTTandShow = ticketsByShow.map(show=> {
-        return show.tickets.reduce((group, ticket) => {
+    // const ticketsByTTandShow = ticketsByShow[0];
+    // ticketsByShow.map(show=> {
+        const ticket_types = show.tickets.reduce((group, ticket) => {
             const {ticket_type_id, ticket_type} = ticket;
             // const {...ttprops} = ticket_type;
             // console.log(ticket_type_id);
@@ -73,38 +82,13 @@ export default function Index() {
             // show[{ticket.ticket_type_id}]
             // }.push(ticket);
             return group;
-        }, []).filter(a=>a)
-
+        }, []).filter(a=>a);
+        console.log(ticket_types);
+        show.ticket_types = ticket_types;
+        return show;
     });
     console.log(ticketsByTTandShow);
-    // groupBy1(show,'ticket_type_id');
-    // console.log(show);
-
-    // console.log(ticket))
-    // console.log(groupBy2);
-    return;
-    const showTicketsByTicketType = ticketsByShow.map(show => {
-        show.map(ticket => {
-            console.log(ticket.ticket_type);
-        })
-        // console.log(ticket);
-        // groupBy(ticket, 'ticket_type')
-    });
-    // console.log(showTicketsByTicketType);
-    return;
-    // const ticketTypesByShow = groupBy(ticketsByShow,''
-    const TIcketsTypesByShow = userTicketsGroupedByShow.reduce((show, ticket) => {
-        const {show_id} = show;
-        // const {ticket_types} = ticket;
-        group[show_id] = group[show_id] ?? [];
-        // group[show.id].tickets = group[show.id].tickets ?? [];
-        group[show_id].push(ticket);
-        /*group[show.id].ticket_types = group[show.id].ticket_types ?? [];*/
-        /*group[show.id].ticket_types.push(ticket_types);*/
-        return group;
-    }, [])
-    // .filter(a => a);
-    return;
+    // créer
     // console.log(auth.user.tickets);
     /*const showtickets = tickets.map(show => {show.data : }*/
     return (
@@ -115,7 +99,7 @@ export default function Index() {
             </div>
             <div className="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
                 <div className="mt-6 bg-white shadow-sm rounded-lg divide-y">
-                    {userTicketsGroupedByShow.map(show =>
+                    {ticketsByTTandShow.map(show =>
                             <UserShow key={show.id} show={show}/>
                         // <Show key={show.id} show={show} user={auth.user} />
                     )}

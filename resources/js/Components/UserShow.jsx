@@ -6,8 +6,8 @@ import {useForm, usePage} from "@inertiajs/inertia-react";
 export default function UserShow({show}) {
     const {auth} = usePage().props;
     const {user} = auth;
-    console.log(show);
-    return;
+    // console.log(show);
+    // return;
     /*    const {data, setData, post, clearErrors, reset, errors} = useForm({
             userId: user.id,
             showId: show.id,
@@ -63,12 +63,13 @@ export default function UserShow({show}) {
                 </div>
                 <p className="mt-4 text-lg text-gray-900">{show.description}</p>
 
-                {show.tickets.map(ticket => ticket.ticket_types.map(ticketType => (
+                {show.ticket_types.map(ticketType => (
                     <TicketType key={ticketType.id}
                                 increment={() => addTicket(ticketType.id)}
                                 decrement={() => removeTicket(ticketType.id)}
-                                number={userTickets.filter(ticket => ticket.ticket_type.id === ticketType.id).length}
-                                ticketType={ticketType}>{ticketType.type}</TicketType>)))}
+                                number={ticketType.tickets.length}
+                                ticketType={ticketType}>{ticketType.type}</TicketType>))
+                }
             </div>
         </div>
     );
