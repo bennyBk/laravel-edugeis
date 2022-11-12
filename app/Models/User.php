@@ -15,7 +15,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
-
+    protected $with = ['tickets'];
     /**
      * The attributes that are mass assignable.
      *

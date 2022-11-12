@@ -9,7 +9,7 @@ export default function Index({ auth,shows }) {
     const { data, setData, post, processing, reset, errors } = useForm({
         message: '',
     });
-
+    // console.log(auth.user);
     const submit = (e) => {
         e.preventDefault();
         post(route('shows.store'), { onSuccess: () => reset() });
@@ -18,8 +18,11 @@ export default function Index({ auth,shows }) {
     return (
         <AuthenticatedLayout auth={auth}>
             <Head title="Spectacles" />
-
+            <div>
+                {/*{auth.user.tickets}*/}
+            </div>
             <div className="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
+{/*
                 <form onSubmit={submit}>
                     <textarea
                         value={data.message}
@@ -30,6 +33,7 @@ export default function Index({ auth,shows }) {
                     <InputError message={errors.message} className="mt-2" />
                     <PrimaryButton className="mt-4" processing={processing}>Chirp</PrimaryButton>
                 </form>
+*/}
 
                 <div className="mt-6 bg-white shadow-sm rounded-lg divide-y">
                     {shows.map(show =>

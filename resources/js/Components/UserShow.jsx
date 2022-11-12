@@ -3,34 +3,34 @@ import TicketType from '@/Components/TicketType';
 import {Inertia} from "@inertiajs/inertia";
 import {useForm, usePage} from "@inertiajs/inertia-react";
 
-export default function Show({show}) {
+export default function UserShow({show}) {
     const {auth} = usePage().props;
     const {user} = auth;
-/*    const {data, setData, post, clearErrors, reset, errors} = useForm({
-        userId: user.id,
-        showId: show.id,
-        ticketTypeId: 0
-    });*/
+    console.log(show);
+    return;
+    /*    const {data, setData, post, clearErrors, reset, errors} = useForm({
+            userId: user.id,
+            showId: show.id,
+            ticketTypeId: 0
+        });*/
+    // const showTicketTypes = show.tickets.reduce((group, ticket) => {
+    //     const {ticket_type} = ticket;
+    //     const {ticket_types} = ticket;
+    //     group[show.id] = group[show.id] ?? show;
+    //     group[show.id].tickets = group[show.id].tickets ?? [];
+    //     group[show.id].tickets.push(ticket);
+    //     /*group[show.id].ticket_types = group[show.id].ticket_types ?? [];*/
+    //     /*group[show.id].ticket_types.push(ticket_types);*/
+    //     return group;
+    // }, []).filter(a => a);
 
-    function sayHello() {
-        console.log("hello");
-    }
-
-    // console.log(user.tickets);
-    const userTickets = user.tickets.filter(ticket => ticket.show.id === show.id);
-  //  TODO : ajouter le nombre de tickets de l'utilisateur avec un setState peut-être ?
-  //  ou
-  /*  const ticketTypes = show.ticket_types.map(ticketType => {
-       ...ticketType,
-       number: 0
-    });*/
     function addTicket(ticketTypeId) {
         console.log(user.id);
         console.log(show.id);
         console.log(ticketTypeId);
         Inertia.post(route('tickets.store'),
             {userId: user.id, showId: show.id, ticketTypeId: ticketTypeId},
-            { preserveScroll: true });
+            {preserveScroll: true});
         // Inertia.post(route('tickets.store'), {userId: user.id,showId: show.id,ticketTypeId: ticketTypeId}), {onSuccess: () => alert('dla bombe')});
     }
 
@@ -40,7 +40,7 @@ export default function Show({show}) {
         const ticket = userTickets.filter(ticket => ticket.ticket_type.id === ticketTypeId)[0]
         console.log(ticket);
         if (ticket) {
-            Inertia.delete(route('tickets.destroy',ticket),
+            Inertia.delete(route('tickets.destroy', ticket),
                 {preserveScroll: true});
         }
     }
@@ -63,12 +63,12 @@ export default function Show({show}) {
                 </div>
                 <p className="mt-4 text-lg text-gray-900">{show.description}</p>
 
-                {show.ticket_types.map(ticketType => <TicketType key={ticketType.id}
+                {show.tickets.map(ticket => ticket.ticket_types.map(ticketType => (
+                    <TicketType key={ticketType.id}
                                 increment={() => addTicket(ticketType.id)}
                                 decrement={() => removeTicket(ticketType.id)}
-                                number={userTickets.filter(ticket=>ticket.ticket_type.id === ticketType.id).length}
-                                ticketType={ticketType}>{ticketType.type}</TicketType>)}
-
+                                number={userTickets.filter(ticket => ticket.ticket_type.id === ticketType.id).length}
+                                ticketType={ticketType}>{ticketType.type}</TicketType>)))}
             </div>
         </div>
     );

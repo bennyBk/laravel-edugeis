@@ -10,6 +10,7 @@ class Ticket extends Model
     //On ne charge pas le user par defaut, dans le cas où : user->tickets
     // renverrait user->tickets->user, etc.
     //protected $with=['show','user','ticketType'];
+    protected $fillable=['show_id', 'user_id', 'ticket_type_id'];
     protected $with=['show','ticketType'];
     use HasFactory;
     public function user() {

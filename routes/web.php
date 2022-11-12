@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ShowController as ShowController;
+use App\Http\Controllers\TicketController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -30,7 +31,16 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::resource('shows', ShowController::class)
-    ->only(['index', 'store'])
+    ->only(['index', 'store','update','destroy'])
     ->middleware(['auth', 'verified']);
+
+Route::resource('tickets', TicketController::class)
+    ->only(['index', 'store','update','destroy'])
+    ->middleware(['auth', 'verified']);
+
+Route::resource('user.tickets', TicketController::class)
+    ->only(['index', 'store','update','destroy'])
+    ->middleware(['auth', 'verified']);
+
 
 require __DIR__.'/auth.php';

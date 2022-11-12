@@ -63,4 +63,7 @@ class UserController extends Controller
     {
         //
     }
+    public function getTickets($id) {
+        return $id;
+    }
 }

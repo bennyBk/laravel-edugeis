@@ -21,4 +21,26 @@ class Show extends Model
     public function ticketTypes() {
         return $this->belongsToMany(TicketType::class);
     }
+
+    /**
+     * @param $seats
+     * @return bool
+     */
+    public function takeSeats(int $seats=1): bool
+    {
+        if($this->available_seats >= $seats) {
+            $this->available_seats --;
+            $this->save();
+            return true;
+        }
+        return false;
+    }
+    public function freeSeats(int $seats=1)
+    {
+            //dd($this->available_seats ++ );
+            $this->available_seats ++;
+            $this->save();
+
+    }
+
 }
