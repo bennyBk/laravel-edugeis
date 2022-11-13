@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Grade;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -21,7 +22,9 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Auth/Register');
+        $grades = Grade::all();
+        $grades->toArray();
+        return Inertia::render('Auth/Register',["grades"=>$grades]);
     }
 
     /**

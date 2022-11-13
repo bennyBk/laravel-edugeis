@@ -18,4 +18,7 @@ class TicketType extends Model
     {
         return $this->belongsToMany(Show::class);
     }
+    public function tarif() {
+        return $this->hasOne(Tarif::class);
+    }
 }

@@ -58,15 +58,14 @@ export default function UserShow({show}) {
                         <span className="text-gray-800">{show.title}</span>
                         <small className="ml-2 text-sm text-gray-600">{show.place}</small>
                         <small className="ml-2 text-sm text-gray-600">{new Date(show.date).toLocaleString()}</small>
-                        <small className="ml-2 text-sm text-red-600">{show.available_seats}</small>
+                        {/*<small className="ml-2 text-sm text-red-600">{show.available_seats}</small>*/}
                     </div>
                 </div>
-                <p className="mt-4 text-lg text-gray-900">{show.description}</p>
-
+                {/*<p className="mt-4 text-lg text-gray-900">{show.description}</p>*/}
                 {show.ticket_types.map(ticketType => (
                     <TicketType key={ticketType.id}
-                                increment={() => addTicket(ticketType.id)}
-                                decrement={() => removeTicket(ticketType.id)}
+                                // increment={() => addTicket(ticketType.id)}
+                                // decrement={() => removeTicket(ticketType.id)}
                                 number={ticketType.tickets.length}
                                 ticketType={ticketType}>{ticketType.type}</TicketType>))
                 }

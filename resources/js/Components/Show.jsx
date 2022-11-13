@@ -6,31 +6,22 @@ import {useForm, usePage} from "@inertiajs/inertia-react";
 export default function Show({show}) {
     const {auth} = usePage().props;
     const {user} = auth;
-/*    const {data, setData, post, clearErrors, reset, errors} = useForm({
-        userId: user.id,
-        showId: show.id,
-        ticketTypeId: 0
-    });*/
-
-    function sayHello() {
-        console.log("hello");
-    }
 
     // console.log(user.tickets);
     const userTickets = user.tickets.filter(ticket => ticket.show.id === show.id);
-  //  TODO : ajouter le nombre de tickets de l'utilisateur avec un setState peut-être ?
-  //  ou
-  /*  const ticketTypes = show.ticket_types.map(ticketType => {
-       ...ticketType,
-       number: 0
-    });*/
+    //  TODO : ajouter le nombre de tickets de l'utilisateur avec un setState peut-être ?
+    //  ou
+    /*  const ticketTypes = show.ticket_types.map(ticketType => {
+         ...ticketType,
+         number: 0
+      });*/
     function addTicket(ticketTypeId) {
         console.log(user.id);
         console.log(show.id);
         console.log(ticketTypeId);
         Inertia.post(route('tickets.store'),
             {userId: user.id, showId: show.id, ticketTypeId: ticketTypeId},
-            { preserveScroll: true });
+            {preserveScroll: true});
         // Inertia.post(route('tickets.store'), {userId: user.id,showId: show.id,ticketTypeId: ticketTypeId}), {onSuccess: () => alert('dla bombe')});
     }
 
@@ -40,7 +31,7 @@ export default function Show({show}) {
         const ticket = userTickets.filter(ticket => ticket.ticket_type.id === ticketTypeId)[0]
         console.log(ticket);
         if (ticket) {
-            Inertia.delete(route('tickets.destroy',ticket),
+            Inertia.delete(route('tickets.destroy', ticket),
                 {preserveScroll: true});
         }
     }
@@ -58,17 +49,28 @@ export default function Show({show}) {
                         <span className="text-gray-800">{show.title}</span>
                         <small className="ml-2 text-sm text-gray-600">{show.place}</small>
                         <small className="ml-2 text-sm text-gray-600">{new Date(show.date).toLocaleString()}</small>
-                        <small className="ml-2 text-sm text-red-600">{show.available_seats}</small>
                     </div>
                 </div>
+                <div>
+                    {show.available_seats
+                        ? <small className="ml-2 text-sm text-red-600">Encore {show.available_seats} places
+                            disponibles</small>
+                        : <small className="ml-2 text-sm text-red-600">Plus de place disponible</small>
+                    }
+                </div>
                 <p className="mt-4 text-lg text-gray-900">{show.description}</p>
+                <div>prendre des places :
+                    <div className="flexxxx ">
+                        {show.ticket_types.map(ticketType =>
 
-                {show.ticket_types.map(ticketType => <TicketType key={ticketType.id}
-                                increment={() => addTicket(ticketType.id)}
-                                decrement={() => removeTicket(ticketType.id)}
-                                number={userTickets.filter(ticket=>ticket.ticket_type.id === ticketType.id).length}
-                                ticketType={ticketType}>{ticketType.type}</TicketType>)}
+                            <TicketType key={ticketType.id}
+                                        increment={() => addTicket(ticketType.id)}
+                                        decrement={() => removeTicket(ticketType.id)}
+                                        number={userTickets.filter(ticket => ticket.ticket_type.id === ticketType.id).length}
+                                        ticketType={ticketType}>{ticketType.type}</TicketType>)}
+                    </div>
 
+                </div>
             </div>
         </div>
     );

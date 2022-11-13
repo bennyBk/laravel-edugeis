@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateGradeRequest;
 use App\Http\Resources\GradeResource;
 use App\Http\Resources\ShowResource;
 use App\Models\Grade;
+use Inertia\Inertia;
 
 class GradeController extends Controller
 {
@@ -17,6 +18,9 @@ class GradeController extends Controller
      */
     public function index()
     {
+        //return Inertia::render('Shows/Index', [
+        //    'shows' => $shows
+        //]);
         return GradeResource::collection(Grade::all());
     }
 

@@ -4,9 +4,12 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
-import { Head, Link, useForm } from '@inertiajs/inertia-react';
+import Select from '@/Components/Select';
+import {Head, Link, useForm, usePage} from '@inertiajs/inertia-react';
+import {Inertia} from "@inertiajs/inertia";
 
 export default function Register() {
+
     const { data, setData, post, processing, errors, reset } = useForm({
         firstname: '',
         lastname: '',
@@ -15,7 +18,7 @@ export default function Register() {
         password: '',
         password_confirmation: '',
     });
-
+  const {grades} = usePage().props;
     useEffect(() => {
         return () => {
             reset('password', 'password_confirmation');
@@ -38,21 +41,39 @@ export default function Register() {
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel forInput="name" value="Name" />
+                    <InputLabel forInput="firstname" value="Prénom" />
 
                     <TextInput
                         type="text"
-                        name="name"
-                        value={data.name}
+                        name="firstname"
+                        value={data.firstname}
                         className="mt-1 block w-full"
-                        autoComplete="name"
+                        autoComplete="firstname"
                         isFocused={true}
                         handleChange={onHandleChange}
                         required
                     />
 
-                    <InputError message={errors.name} className="mt-2" />
+                    <InputError message={errors.firstname} className="mt-2" />
                 </div>
+                <div>
+                    <InputLabel forInput="lastname" value="Nom" />
+
+                    <TextInput
+                        type="text"
+                        name="lastname"
+                        value={data.lastname}
+                        className="mt-1 block w-full"
+                        autoComplete="lastname"
+                        isFocused={true}
+                        handleChange={onHandleChange}
+                        required
+                    />
+
+                    <InputError message={errors.lastname} className="mt-2" />
+                </div>
+                {/*TODO grade select */}
+                <Select items={grades} startItem={grades[0]} />
 
                 <div className="mt-4">
                     <InputLabel forInput="email" value="Email" />
