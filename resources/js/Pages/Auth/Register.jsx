@@ -73,8 +73,10 @@ export default function Register() {
                     <InputError message={errors.lastname} className="mt-2" />
                 </div>
                 {/*TODO grade select */}
-                <Select items={grades} startItem={grades[0]} />
+                <Select  items={grades} startItem={grades[0]} name="grade"
+                />
 
+              {/*<input type="hidden" name="grade[id]" value="1" />*/}
                 <div className="mt-4">
                     <InputLabel forInput="email" value="Email" />
 
