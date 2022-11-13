@@ -2,6 +2,7 @@ import React from 'react';
 import TicketType from '@/Components/TicketType';
 import {Inertia} from "@inertiajs/inertia";
 import {useForm, usePage} from "@inertiajs/inertia-react";
+import parseHtml from "html-react-parser";
 
 export default function Show({show}) {
     const {auth} = usePage().props;
@@ -58,7 +59,7 @@ export default function Show({show}) {
                         : <small className="ml-2 text-sm text-red-600">Plus de place disponible</small>
                     }
                 </div>
-                <p className="mt-4 text-lg text-gray-900">{show.description}</p>
+                <div className="mt-4 text-lg text-gray-900">{parseHtml(show.description)}</div>
                 <div>prendre des places :
                     <div className="flexxxx ">
                         {show.ticket_types.map(ticketType =>

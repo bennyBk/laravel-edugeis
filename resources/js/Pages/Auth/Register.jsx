@@ -13,7 +13,7 @@ export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
         firstname: '',
         lastname: '',
-        class: '',
+        grade: '1',
         email: '',
         password: '',
         password_confirmation: '',
@@ -73,10 +73,10 @@ export default function Register() {
                     <InputError message={errors.lastname} className="mt-2" />
                 </div>
                 {/*TODO grade select */}
-                <Select  items={grades} startItem={grades[0]} name="grade"
-                />
+                {/*<Select items={grades} startItem={grades[0]} name="grade"*/}
+                {/*/>*/}
 
-              {/*<input type="hidden" name="grade[id]" value="1" />*/}
+              <input type="hidden" name="grade" value="1"  />
                 <div className="mt-4">
                     <InputLabel forInput="email" value="Email" />
 
@@ -85,7 +85,7 @@ export default function Register() {
                         name="email"
                         value={data.email}
                         className="mt-1 block w-full"
-                        autoComplete="username"
+                        autoComplete="email"
                         handleChange={onHandleChange}
                         required
                     />

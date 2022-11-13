@@ -23,6 +23,7 @@
         "vite": "^3.0.0"
     },
     "dependencies": {
-        "@heroicons/react": "^2.0.13"
+        "@heroicons/react": "^2.0.13",
+        "html-react-parser": "^3.0.4"
     }
 }
