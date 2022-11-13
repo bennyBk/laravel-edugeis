@@ -42,5 +42,11 @@ Route::resource('user.tickets', TicketController::class)
     ->only(['index', 'store','update','destroy'])
     ->middleware(['auth', 'verified']);
 
+Route::get('/mailable', function () {
+    //$invoice = App\Models\Invoice::find(1);
+    //return new App\Mail\TIcketsConfirm($invoice);
+    return new App\Mail\TIcketsConfirm();
+
+});
 
 require __DIR__.'/auth.php';
