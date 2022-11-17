@@ -1,17 +1,21 @@
+{{-- Attention de ne pas indenter, sinon KC :https://stackoverflow.com/questions/49155257/laravel-blade-template-not-rendering-table-properly --}}
 @component('mail::message')
-# Introduction
-
+# Votre demande de places a bien été enregistrée
+{{ $user['firstname'] }}
+{{ $user['lastname'] }}
+{{--{{ $tickets['show'] }}--}}
 The body of your message.
-
 {{--@component('mail::button', ['url' => ''])--}}
 {{--Button Text--}}
 @component('mail::table')
-    | Laravel       | Table         | Example  |
-    | ------------- |:-------------:| --------:|
-    | Col 2 is      | Centered      | $10      |
-    | Col 3 is      | Right-Aligned | $20      |
+| Spectacle       | place         |
+|:------------- |:------------|
+@foreach ($user->tickets as $ticket)
+| {{$ticket->show->title}}<br>{{$ticket->show->date}} <br> {{$ticket->show->place}} | {{$ticket->ticketType->type}} |
+@endforeach
+
 @endcomponent
 
-Thanks,<br>
-{{ config('app.name') }}
+Merci,<br>
+{{-- {{ config('app.name') }} --}}
 @endcomponent

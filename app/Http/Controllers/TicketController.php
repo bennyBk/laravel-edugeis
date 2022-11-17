@@ -98,7 +98,8 @@ class TicketController extends Controller
      */
     public function show(Ticket $ticket)
     {
-        return new TicketResource($ticket);
+        //return new TicketResource($ticket);
+        return $ticket;
     }
 
     /**

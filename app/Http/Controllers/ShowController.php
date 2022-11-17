@@ -54,7 +54,8 @@ class ShowController extends Controller
      */
     public function show(Show $show)
     {
-        return new ShowResource($show);
+        return $show;
+        //return new ShowResource($show);
     }
 
     /**
