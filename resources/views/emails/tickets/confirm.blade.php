@@ -1,10 +1,10 @@
 {{-- Attention de ne pas indenter, sinon KC :https://stackoverflow.com/questions/49155257/laravel-blade-template-not-rendering-table-properly --}}
 @component('mail::message')
+Bonjour {{ $user['firstname'] }}
+{{ $user['lastname'] }},
 # Votre demande de places a bien été enregistrée
-{{ $user['firstname'] }}
-{{ $user['lastname'] }}
+
 {{--{{ $tickets['show'] }}--}}
-The body of your message.
 {{--@component('mail::button', ['url' => ''])--}}
 {{--Button Text--}}
 @component('mail::table')
@@ -17,5 +17,6 @@ The body of your message.
 @endcomponent
 
 Merci,<br>
+L'équipe pédagogique
 {{-- {{ config('app.name') }} --}}
 @endcomponent

@@ -43,12 +43,15 @@ Route::resource('user.tickets', TicketController::class)
     ->middleware(['auth', 'verified']);
 
 // juste la route pour tester le mail
-Route::get('/mailable',
+Route::get('/confirm',
 function () {
     //$invoice = App\Models\Invoice::find(1);
     //return new App\Mail\TIcketsConfirm($invoice);
-    return new App\Mail\TIcketsConfirm();
+    Mail::to(Auth::user()->email)
+        ->send(new App\Mail\TIcketsConfirm());
+    return redirect()->back()->with('success', 'Un email de confirmation vous a été envoyé');
+    //return Inertia::render('Dashboard');
 
-})->middleware(['auth', 'verified']);
+})->middleware(['auth', 'verified'])->name('tickets.confirm');
 
 require __DIR__.'/auth.php';
