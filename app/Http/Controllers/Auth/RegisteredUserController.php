@@ -24,13 +24,13 @@ class RegisteredUserController extends Controller
     {
         $grades = Grade::all();
         $grades->toArray();
-        return Inertia::render('Auth/Register',["grades"=>$grades]);
+        return Inertia::render('Auth/Register', ["grades" => $grades]);
     }
 
     /**
      * Handle an incoming registration request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      *
      * @throws \Illuminate\Validation\ValidationException
@@ -60,5 +60,29 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
+    }
+
+    /**
+     * Save the modified personal information for a user.
+     */
+    public function accountInfoStore(Request $request)
+    {
+        $request->validate([
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+        //$request->validate([
+        //    'name' => ['required', 'string', 'max:255'],
+        //    'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . \Auth::user()->id],
+        //]);
+        $user = \Auth::user()->update($request->except(['_token']));
+        if ($user) {
+            $message = 'Account updated successfully.';
+        } else {
+            $message = 'Error while saving. Please try again.';
+        }
+        return redirect()->route('admin.account.info')->with('message', __($message));
     }
 }

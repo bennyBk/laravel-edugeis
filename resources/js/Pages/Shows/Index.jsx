@@ -21,7 +21,7 @@ export default function Index({ auth,shows }) {
             <div>
                 {/*{auth.user.tickets}*/}
             </div>
-            <div className="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
+            <div className="mt-6 max-w-2xl mx-auto p-4 sm:p-6 lg:p-8 pt-0 sm:pt-0 lg:pt-0">
 {/*
                 <form onSubmit={submit}>
                     <textarea
@@ -35,7 +35,7 @@ export default function Index({ auth,shows }) {
                 </form>
 */}
 
-                <div className="mt-6 bg-white shadow-sm rounded-lg divide-y">
+                <div className=" bg-white shadow-sm rounded-lg divide-y">
                     {shows.map(show =>
                         <Show key={show.id} show={show} />
                     )}

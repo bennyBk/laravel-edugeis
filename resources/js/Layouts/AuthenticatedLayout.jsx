@@ -3,7 +3,7 @@ import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import {Link, usePage} from '@inertiajs/inertia-react';
+import { Link, usePage } from '@inertiajs/inertia-react';
 import Notification from "@/Components/Notification";
 
 export default function Authenticated({ auth, header, children }) {
@@ -126,23 +126,22 @@ export default function Authenticated({ auth, header, children }) {
                 </header>
             )}
 
-            <main>
-                {/* TODO flash messages */}
-                {/*https://inertiajs.com/shared-data#flash-messages*/}
-                {flash.message && (
-                    <Notification message={flash.message} type="message"/>
-                    // <div class="alert">{flash.message}</div>
-                )}
-                {flash.error && (
-                    <Notification message={flash.error} type="error"/>
-                    // <div class="alert">{flash.error}</div>
-                )}
-                {flash.success && (
-                    <Notification message={flash.success} type="success"/>
-                    // <div class="success">{flash.success}</div>
-                )}
-                {children}
-            </main>
+
+            {/* TODO flash messages */}
+            {/*https://inertiajs.com/shared-data#flash-messages*/}
+            {flash.message && (
+                <Notification color="indigo" message={flash.message} type="message" />
+                // <div class="alert">{flash.message}</div>
+            )}
+            {flash.error && (
+                <Notification color="red" message={flash.error} type="error" />
+                // <div class="alert">{flash.error}</div>
+            )}
+            {flash.success && (
+                <Notification color="blue" message={flash.success} type="success" />
+                // <div class="success">{flash.success}</div>
+            )}
+            {children}
         </div>
     );
 }
