@@ -7,13 +7,14 @@ import TextInput from '@/Components/TextInput';
 import Select from '@/Components/Select';
 import {Head, Link, useForm, usePage} from '@inertiajs/inertia-react';
 import {Inertia} from "@inertiajs/inertia";
+import SelectInput from "@/Components/SelectInput";
 
 export default function Register() {
 
     const { data, setData, post, processing, errors, reset } = useForm({
         firstname: '',
         lastname: '',
-        grade: '1',
+        grade: '',
         email: '',
         password: '',
         password_confirmation: '',
@@ -73,8 +74,22 @@ export default function Register() {
                     <InputError message={errors.lastname} className="mt-2" />
                 </div>
                 {/*TODO grade select */}
-                {/*<Select items={grades} startItem={grades[0]} name="grade"*/}
-                {/*/>*/}
+            {/*  <SelectInput
+                className="w-full pb-8 pr-6 lg:w-1/2"
+                label="Classe"
+                name="grade"
+                errors={errors.grades}
+                value={grade}
+                onChange={e => setData(grade, e.target.value)}
+              >
+                {grades.map(grade=>{
+                  <option value={grade.id}>{grade.name}</option>
+                })}
+              </SelectInput>*/}
+              {/*{grades.map(grade=> <span>{grade.name}</span>*/}
+              {/*)}*/}
+                <Select onChange={e => setData(grade, e.target.value)} items={grades} startItem={grades[0]} name="grade"
+                />
 
               <input type="hidden" name="grade" value="1"  />
                 <div className="mt-4">

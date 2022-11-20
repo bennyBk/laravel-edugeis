@@ -65,6 +65,7 @@ class RegisteredUserController extends Controller
     /**
      * Save the modified personal information for a user.
      */
+    /* TODO */
     public function accountInfoStore(Request $request)
     {
         $request->validate([

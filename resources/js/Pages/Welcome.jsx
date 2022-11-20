@@ -4,13 +4,13 @@ import { Link, Head } from '@inertiajs/inertia-react';
 export default function Welcome(props) {
   return (
     <>
-      <div className="bg-gray-50">
-        <div className="flex m-4">
-          <div className="flex-none flex items-center">
+      <div className="bg-gray-50 ">
+        <div className="flex m-4 mx-auto lg:px-8">
+          <div className="flex-none flex items-center content-end">
             <img src="/logo_col6.png" alt="logo college Geispitz" />
           </div>
           <div
-            className="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:flex lg:items-center lg:justify-between lg:py-16 lg:px-8">
+            className=" max-w-7xl py-12 px-4 sm:px-6 lg:flexx lg:items-center lg:justify-betweenx lg:py-16">
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
               <span className="block">Bienvenue {props.auth.user && props.auth.user.firstname + ' ' + props.auth.user.lastname}</span>
               <span className="block text-indigo-600">Parcours du spectateur</span>
@@ -23,7 +23,7 @@ export default function Welcome(props) {
                   spectateur.
 
                 </div>
-                <div className="mt-2 text-gray-600 dark:text-gray-900 text-sm">
+                <div className="mt-2 text-gray-600 dark:text-gray-900 text-sm mb-8">
                   Pour continuer, vous allez devoir vous connecter si vous avez déjà un compte, ou bien créer votre
                   compte.
                 </div>

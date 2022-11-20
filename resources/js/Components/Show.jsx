@@ -1,12 +1,12 @@
 import React from 'react';
 import TicketType from '@/Components/TicketType';
-import {Inertia} from "@inertiajs/inertia";
-import {useForm, usePage} from "@inertiajs/inertia-react";
+import { Inertia } from "@inertiajs/inertia";
+import { useForm, usePage } from "@inertiajs/inertia-react";
 import parseHtml from "html-react-parser";
 
-export default function Show({show}) {
-  const {auth} = usePage().props;
-  const {user} = auth;
+export default function Show({ show }) {
+  const { auth } = usePage().props;
+  const { user } = auth;
 
   // console.log(user.tickets);
   const userTickets = user.tickets.filter(ticket => ticket.show.id === show.id);
@@ -21,8 +21,8 @@ export default function Show({show}) {
     // console.log(show.id);
     // console.log(ticketTypeId);
     Inertia.post(route('tickets.store'),
-      {userId: user.id, showId: show.id, ticketTypeId: ticketTypeId},
-      {preserveScroll: true,preserveState: true});
+      { userId: user.id, showId: show.id, ticketTypeId: ticketTypeId },
+      { preserveScroll: true, preserveState: true });
     // Inertia.post(route('tickets.store'), {userId: user.id,showId: show.id,ticketTypeId: ticketTypeId}), {onSuccess: () => alert('dla bombe')});
   }
 
@@ -33,50 +33,60 @@ export default function Show({show}) {
     // console.log(ticket);
     if (ticket) {
       Inertia.delete(route('tickets.destroy', ticket),
-        {preserveScroll: true});
+        { preserveScroll: true });
     }
   }
-
+  // https://stackoverflow.com/questions/3552461/how-do-i-format-a-date-in-javascript
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat
+  const dateOptions = { weekday: "short", year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "numeric" };
   return (
     <div className="p-6 flex space-x-2">
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-600 -scale-x-100" fill="none"
-           viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-        <path strokeLinecap="round" strokeLinejoin="round"
-              d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-      </svg>
+      {/* TODO ICON SHOW */}
       <div className="flex-1">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        <div class="md:flex border-b-2 items-end">
+          <h2 className=" flex-1 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             {/*<span className="block">Bienvenue</span>*/}
             <span className="block text-indigo-600">{show.title}</span>
           </h2>
-        <div className="flex justify-between items-center">
-          <div>
-            <span className="text-gray-800">{show.title}</span>
-            <small className="ml-2 text-sm text-gray-600">{show.place}</small>
-            <small className="ml-2 text-sm text-gray-600">{new Date(show.date).toLocaleString()}</small>
+          <div className='text-right py-1'>
+            <div class=""><small className="ml-2 text-sm text-gray-600">{new Date(show.date).toLocaleString('fr-FR', dateOptions)}</small>
+
+            </div>
           </div>
         </div>
-        <div>
-          {show.available_seats
-            ? <small className="ml-2 text-sm text-red-600">Encore {show.available_seats} places
-              disponibles</small>
-            : <small className="ml-2 text-sm text-red-600">Plus de place disponible</small>
-          }
-        </div>
-        <div className="mt-4 text-lg text-gray-900">{parseHtml(show.description)}</div>
-        <div>prendre des places :
-          <div className="flexxxx ">
-            {show.ticket_types.map(ticketType =>
 
-              <TicketType key={ticketType.id}
-                          increment={() => addTicket(ticketType.id)}
-                          decrement={() => removeTicket(ticketType.id)}
-                          number={userTickets.filter(ticket => ticket.ticket_type.id === ticketType.id).length}
-                          ticketType={ticketType}>{ticketType.type}</TicketType>)}
+
+        <div className="flex">
+          <div className="flex-1 space-around flex-col mt-4 mr-2 mb-2 text-lgs text-gray-900">
+
+            <div className="mb-2 text-xl text-cyan-800">{show.place}</div>
+
+
+            <div className="my-auto">{parseHtml(show.description)}</div></div>
+          <div className='w-1/2 flex-col justify-between content-between'>
+
+            <div className='text-right p-2'>
+              {show.available_seats
+                ? <small className="ml-2 text-sm text-red-600"><span className=' font-bold'>{show.available_seats}</span> places
+                  disponibles</small>
+                : <small className="ml-2 text-sm text-red-600">Plus de place disponible</small>
+              }
+            </div>
+            <div className='bg-gray-50 rounded-md border border-gray-100 p-2'>
+              <div className="text-sm text-center border-b mb-2 border-indigo-200 text-indigo-800 font-bold py-1"> Prendre des places</div>
+              <div className="flexxxx ">
+                {show.ticket_types.map(ticketType =>
+                  <TicketType key={ticketType.id}
+                    increment={() => addTicket(ticketType.id)}
+                    decrement={() => removeTicket(ticketType.id)}
+                    number={userTickets.filter(ticket => ticket.ticket_type.id === ticketType.id).length}
+                    ticketType={ticketType}>{ticketType.type}</TicketType>)}
+              </div>
+            </div>
           </div>
-
         </div>
       </div>
+
     </div>
   );
 }
