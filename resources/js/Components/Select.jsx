@@ -6,11 +6,14 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Select({items, startItem, name}) {
+export default function Select({items, startItem, name,...props}) {
   const [selected, setSelected] = useState(startItem)
-
+  const customChange = (selected) => {
+    setSelected(selected)
+    props.handleSelect(selected)
+  }
   return (
-    <Listbox value={selected} onChange={setSelected} name={name}>
+    <Listbox value={selected} onChange={selected => customChange(selected)} by="id" name={name}>
       {({open}) => (
         /* TODO style du bloc */
         <div className="">

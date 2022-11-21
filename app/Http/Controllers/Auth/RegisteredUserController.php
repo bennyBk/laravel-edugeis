@@ -39,16 +39,23 @@ class RegisteredUserController extends Controller
     {
         // TODO debug la liste déroulante
         //dd($request);
-        $request->validate([
+        $validatedData = $request->validate([
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        // retrouver la classe =
+        if($request->get('grade')){
+            $gradeId = $request->get('grade')['id'];
+            $grade = Grade::findOrFail($gradeId);
+            $validatedData['grade_id'] = $grade->id;
+            $validatedData['class'] = $grade->name;
+        }
         $user = User::create([
-            'class' => '6e1',
-            'grade_id' => 1,
+            'class' => $validatedData['class'],
+            'grade_id' => $validatedData['grade_id'],
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
             'email' => $request->email,

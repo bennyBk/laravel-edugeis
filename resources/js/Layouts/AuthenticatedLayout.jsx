@@ -7,10 +7,8 @@ import { Link, usePage } from '@inertiajs/inertia-react';
 import Notification from "@/Components/Notification";
 
 export default function Authenticated({ auth, header, children }) {
-    const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+  const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
     const { flash } = usePage().props;
-    const test = usePage().props.auth;
-    console.log(test);
     return (
         <div className="min-h-screen bg-gray-100">
             <nav className="bg-white border-b border-gray-100">
@@ -64,6 +62,9 @@ export default function Authenticated({ auth, header, children }) {
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
+                                      <Dropdown.Link href={route('user.edit')} method="get" as="button">
+                                        Mon compte
+                                      </Dropdown.Link>
                                         <Dropdown.Link href={route('logout')} method="post" as="button">
                                             Déconnexion
                                         </Dropdown.Link>

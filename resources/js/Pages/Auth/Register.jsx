@@ -14,7 +14,7 @@ export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
         firstname: '',
         lastname: '',
-        grade: '',
+        grade: {},
         email: '',
         password: '',
         password_confirmation: '',
@@ -88,10 +88,12 @@ export default function Register() {
               </SelectInput>*/}
               {/*{grades.map(grade=> <span>{grade.name}</span>*/}
               {/*)}*/}
-                <Select onChange={e => setData(grade, e.target.value)} items={grades} startItem={grades[0]} name="grade"
-                />
+              <div className="mt-4">
+                <Select handleSelect={selected=>setData({grade:selected})} items={grades}
+                        startItem={grades[0]} name="grade"
+                /></div>
 
-              <input type="hidden" name="grade" value="1"  />
+              {/*<input type="hidden" name="grade" value="1"  />*/}
                 <div className="mt-4">
                     <InputLabel forInput="email" value="Email" />
 
@@ -109,7 +111,7 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel forInput="password" value="Password" />
+                    <InputLabel forInput="password" value="Mot de passe" />
 
                     <TextInput
                         type="password"
@@ -125,7 +127,7 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel forInput="password_confirmation" value="Confirm Password" />
+                    <InputLabel forInput="password_confirmation" value="Confirmer le mot de passe" />
 
                     <TextInput
                         type="password"
@@ -141,11 +143,11 @@ export default function Register() {
 
                 <div className="flex items-center justify-end mt-4">
                     <Link href={route('login')} className="underline text-sm text-gray-600 hover:text-gray-900">
-                        Already registered?
+                        J'ai déjà un compte
                     </Link>
 
                     <PrimaryButton className="ml-4" processing={processing}>
-                        Register
+                        Créer mon compte
                     </PrimaryButton>
                 </div>
             </form>

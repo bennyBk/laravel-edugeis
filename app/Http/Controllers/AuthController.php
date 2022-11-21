@@ -19,26 +19,26 @@ class AuthController extends Controller
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
             // TODO verif si c classe OK a la crea
-            'class' => 'required|string|max:4',
+            //'class' => 'required|string|max:4',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
         ]);
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 401);
-            //    'error'return redirect('post/create')
-            //->withErrors($validator)
-            //->withInput();
-        }
-        //TODO gérer user déjà existant
-
-        // Retrieve the validated input...
+        //if ($validator->fails()) {
+        //    return response()->json(['errors' => $validator->errors()], 401);
+        //    //    'error'return redirect('post/create')
+        //    //->withErrors($validator)
+        //    //->withInput();
+        //}
         $validatedData = $validator->validated();
-        // TODO retrouver la classe =
-        $grade = Grade::where(['name' => $validatedData['class']])->firstOr(function () {
-            return response()->json(['errors' => ['class' => 'not found']], 401);
-        });
-        //return response()->json(['class' => $grade->name]);
-
+        $validatedData = array_filter($validatedData);
+        // retrouver la classe =
+        dd($request);
+        if($request->get('grade')){
+            $gradeId = $request->get('grade')['id'];
+            $grade = Grade::findOrFail($gradeId);
+            $validatedData['grade_id'] = $grade->id;
+            $validatedData['class'] = $grade->name;
+        }
 
         $user = User::create([
             'firstname' => $validatedData['firstname'],

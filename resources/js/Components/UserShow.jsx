@@ -2,6 +2,7 @@ import React from 'react';
 import TicketType from '@/Components/TicketType';
 import {Inertia} from "@inertiajs/inertia";
 import {useForm, usePage} from "@inertiajs/inertia-react";
+import {FormatDate} from "@/Components/Helpers";
 
 export default function UserShow({show}) {
     const {auth} = usePage().props;
@@ -25,9 +26,6 @@ export default function UserShow({show}) {
     // }, []).filter(a => a);
 
     function addTicket(ticketTypeId) {
-        console.log(user.id);
-        console.log(show.id);
-        console.log(ticketTypeId);
         Inertia.post(route('tickets.store'),
             {userId: user.id, showId: show.id, ticketTypeId: ticketTypeId},
             {preserveScroll: true});
@@ -35,10 +33,8 @@ export default function UserShow({show}) {
     }
 
     function removeTicket(ticketTypeId) {
-        // TODO suppr. le 1er ticket du type donné
-        console.log(user.tickets);
+        // suppr. le 1er ticket du type donné
         const ticket = userTickets.filter(ticket => ticket.ticket_type.id === ticketTypeId)[0]
-        console.log(ticket);
         if (ticket) {
             Inertia.delete(route('tickets.destroy', ticket),
                 {preserveScroll: true});
@@ -57,7 +53,7 @@ export default function UserShow({show}) {
                     <div>
                         <span className="text-gray-800">{show.title}</span>
                         <small className="ml-2 text-sm text-gray-600">{show.place}</small>
-                        <small className="ml-2 text-sm text-gray-600">{new Date(show.date).toLocaleString()}</small>
+                        <small className="ml-2 text-sm text-gray-600">{FormatDate(show.date)}</small>
                         {/*<small className="ml-2 text-sm text-red-600">{show.available_seats}</small>*/}
                     </div>
                 </div>

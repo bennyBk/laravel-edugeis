@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\ShowController as ShowController;
+use App\Http\Controllers\ShowController;
 use App\Http\Controllers\TicketController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,5 +54,7 @@ function () {
     //return Inertia::render('Dashboard');
 
 })->middleware(['auth', 'verified'])->name('tickets.confirm');
-
+Route::get('mon_compte',[UserController::class, 'edit'])->name('user.edit')->middleware('auth','verified');
+Route::put('mon_compte',[UserController::class, 'update'])->name('user.update')->middleware('auth','verified');
+//Route::group();
 require __DIR__.'/auth.php';
