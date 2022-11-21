@@ -38,7 +38,6 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         // TODO debug la liste déroulante
-        //dd($request);
         $validatedData = $request->validate([
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
@@ -50,12 +49,13 @@ class RegisteredUserController extends Controller
         if($request->get('grade')){
             $gradeId = $request->get('grade')['id'];
             $grade = Grade::findOrFail($gradeId);
-            $validatedData['grade_id'] = $grade->id;
-            $validatedData['class'] = $grade->name;
+            //$validatedData['grade_id'] = $grade->id;
         }
+        //dd($request);
+
         $user = User::create([
-            'class' => $validatedData['class'],
-            'grade_id' => $validatedData['grade_id'],
+            'class' => $grade->name,
+            'grade_id' => $grade->id,
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
             'email' => $request->email,

@@ -10,16 +10,16 @@ import {Inertia} from "@inertiajs/inertia";
 import SelectInput from "@/Components/SelectInput";
 
 export default function Register() {
+  const {grades} = usePage().props;
 
     const { data, setData, post, processing, errors, reset } = useForm({
         firstname: '',
         lastname: '',
-        grade: {},
+        grade: grades[0],
         email: '',
         password: '',
         password_confirmation: '',
     });
-  const {grades} = usePage().props;
     useEffect(() => {
         return () => {
             reset('password', 'password_confirmation');
@@ -32,8 +32,7 @@ export default function Register() {
 
     const submit = (e) => {
         e.preventDefault();
-
-        post(route('register'));
+        Inertia.post('register',data); // bugué ?
     };
 
     return (
@@ -90,7 +89,7 @@ export default function Register() {
               {/*)}*/}
               <div className="mt-4">
                 <Select handleSelect={selected=>setData({grade:selected})} items={grades}
-                        startItem={grades[0]} name="grade"
+                        startItem={data.grade} name="grade"
                 /></div>
 
               {/*<input type="hidden" name="grade" value="1"  />*/}
