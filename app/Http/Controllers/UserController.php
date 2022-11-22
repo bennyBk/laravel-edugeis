@@ -7,10 +7,13 @@ use App\Models\Grade;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
+use Illuminate\Validation\Rules;
+
 
 class UserController extends Controller
 {
@@ -64,7 +67,7 @@ class UserController extends Controller
             'lastname' => 'required|string|max:255',
             'class' => 'required|string|max:4',
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'password' => 'nullable|string|min:8',
+            'password' => ['nullable','string','min:8',Rules\Password::defaults()]
         ]);
         //if ($validator->fails()) {
         //    return redirect()->back()->with(['errors'=>$validator->errors()], 401);
@@ -82,6 +85,9 @@ class UserController extends Controller
             $validatedData['grade_id'] = $grade->id;
             $validatedData['class'] = $grade->name;
         }
+        if(isset($validatedData['password']))
+            $validatedData['password'] = Hash::make($validatedData['password']);
+
         $user->update($validatedData);
         return redirect()->back()->with('success', 'Votre compte a été mis à jour');
 
