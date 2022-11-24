@@ -47,6 +47,6 @@ class TIcketsConfirm extends Mailable
         return $this->markdown('emails.tickets.confirm', [
             'user' => $this->user,
             //'tickets' => $this->user->tickets()->get()
-        ]);
+        ])->subject('Parcours du spectateur : Votre réservation de places');
     }
 }

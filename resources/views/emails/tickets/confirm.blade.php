@@ -11,7 +11,7 @@ Bonjour {{ $user['firstname'] }}
 | Spectacle       | place         |
 |:------------- |:------------|
 @foreach ($user->tickets as $ticket)
-| {{$ticket->show->title}}<br>{{$ticket->show->date}} <br> {{$ticket->show->place}} | {{$ticket->ticketType->type}} |
+| {{$ticket->show->title}}<br>{{\Carbon\Carbon::parse($ticket->show->date)->translatedFormat('d F Y à H\hi')}} <br> {{$ticket->show->place}} | {{$ticket->ticketType->type}} |
 @endforeach
 
 @endcomponent
