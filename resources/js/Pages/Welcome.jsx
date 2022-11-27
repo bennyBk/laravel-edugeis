@@ -6,7 +6,7 @@ export default function Welcome(props) {
     <>
       <div className="bg-gray-50 ">
         <div className="flex m-4 mx-auto lg:px-8">
-          <div className="flex-none flex items-center content-end">
+          <div className="flex-none w-1/5 flex items-start content-end">
             <img src="/logo_col6.png" alt="logo college Geispitz" />
           </div>
           <div

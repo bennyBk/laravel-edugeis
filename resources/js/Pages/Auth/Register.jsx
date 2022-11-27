@@ -32,13 +32,13 @@ export default function Register() {
 
     const submit = (e) => {
         e.preventDefault();
-        Inertia.post('register',data); // bugué ?
+        post('register');
+        // Inertia.post('register',data); // bugué ?
     };
 
     return (
         <GuestLayout>
             <Head title="Register" />
-
             <form onSubmit={submit}>
                 <div>
                     <InputLabel forInput="firstname" value="Prénom" />
@@ -90,7 +90,10 @@ export default function Register() {
               <div className="mt-4">
                 <Select handleSelect={selected=>setData({grade:selected})} items={grades}
                         startItem={data.grade} name="grade"
-                /></div>
+                />
+                <InputError message={errors.grade} className="mt-2" />
+
+              </div>
 
               {/*<input type="hidden" name="grade" value="1"  />*/}
                 <div className="mt-4">
