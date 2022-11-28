@@ -116,11 +116,14 @@ export default function Authenticated({ auth, header, children }) {
                         <div className="px-4">
                             <div className="font-medium text-base text-gray-800">{auth.user.name}</div>
                             <div className="font-medium text-sm text-gray-500">{auth.user.email}</div>
+
                         </div>
 
                         <div className="mt-3 space-y-1">
+                          <ResponsiveNavLink href={route('user.edit')} method="get" as="button">
+                            Mon compte</ResponsiveNavLink>
                             <ResponsiveNavLink method="post" href={route('logout')} as="button">
-                                Log Out
+                                Déconnexion
                             </ResponsiveNavLink>
                         </div>
                     </div>

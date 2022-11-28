@@ -65,7 +65,7 @@ class UserController extends Controller
         $validator = Validator::make($request->json()->all(), [
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
-            //'grade' => 'required|string|max:4',
+            'class' => 'required|string|max:4',
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'password' => ['nullable','string','min:8',Rules\Password::defaults()]
         ]);
@@ -76,8 +76,8 @@ class UserController extends Controller
             //->withErrors($validator)
             //->withInput();
         //}
+
         $validatedData = $validator->validated();
-        dd($validatedData);
         $validatedData = array_filter($validatedData);
         // retrouver la classe =
         //if($request->get('grade')){

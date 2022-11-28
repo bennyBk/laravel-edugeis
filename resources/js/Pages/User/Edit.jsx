@@ -10,14 +10,12 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import {grades} from "@/Components/Helpers";
 
 export default function Edit(props) {
-  console.log(grades);
   const {auth} = props;
   const {user} = auth;
-  console.log(user.class);
   const initGrade = grades.find(grade => grade === auth.user.class);
-  console.log(grades.find(grade => grade === user.class));
+  // console.log(grades.find(grade => grade === user.class));
   const {data, setData, post,put, processing, errors, reset} = useForm({
-    class: initGrade || '',
+    class: initGrade,
     password_confirmation: '',
     firstname: user.firstname || '',
     lastname: user.lastname || '',
@@ -47,7 +45,6 @@ export default function Edit(props) {
 
   const submit = (e) => {
     e.preventDefault();
-
     Inertia.put(route('user.update'),data);
   };
 
@@ -110,7 +107,7 @@ export default function Edit(props) {
               {/*{grades.map(grade=> <span>{grade.name}</span>*/}
               {/*)}*/}
               <div className="mt-4">
-                <Select items={grades} startItem={data.class} name="class"
+                <Select items={grades} startItem={data.class} value={data.class} name="class"
               /></div>
 
               {/*<input type="hidden" name="grade" value="1"  />*/}

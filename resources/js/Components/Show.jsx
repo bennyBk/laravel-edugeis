@@ -49,27 +49,20 @@ export default function Show({show}) {
             {/*<span className="block">Bienvenue</span>*/}
             <span className="block text-indigo-600">{show.title}</span>
           </h2>
-          {/*<div className='text-right py-1'>
-            <div className=""><small className="ml-2 text-sm text-gray-600">{FormatDate(show.date)}</small>
-
-            </div>
-          </div>*/}
         </div>
 
 
-        <div className="flex">
+        <div className="sm:flex">
           <div className="flex-1 flex-column flex space-around flex-col mt-4 mr-2 mb-2 text-lgs text-gray-900">
             <div className='text-right py-1'>
-              <div className=""><div className="mt-4 text-sm text-gray-800">{FormatDate(show.date)}</div>
-
-              </div>
+              <div className="mt-4 text-sm text-gray-800">{FormatDate(show.date)}</div>
             </div>
             <div className="mb-2 text-xl text-orange-700">{show.place}</div>
 
 
             <div className="my-auto">{parseHtml(show.description)}</div>
           </div>
-          <div className='w-1/2 flex-col justify-between content-between'>
+          <div className='w-auto sm:w-1/2 border-t-2 sm:border-t-0 flex-col justify-between content-between'>
 
             <div className='text-center p-2'>
               {show.available_seats
