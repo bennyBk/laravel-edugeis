@@ -33,9 +33,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function tickets() {
         return $this->hasMany(Ticket::class);
     }
-    public function grade() {
-        return $this->belongsTo(Grade::class);
-    }
+    //public function grade() {
+    //    return $this->belongsTo(Grade::class);
+    //}
 
     /**
      * The attributes that should be hidden for serialization.

@@ -8,12 +8,13 @@ function classNames(...classes) {
 
 export default function Select({items, startItem, name,...props}) {
   const [selected, setSelected] = useState(startItem)
-  const customChange = (selected) => {
-    setSelected(selected)
-    props.handleSelect(selected)
-  }
+  // const customChange = (selected) => {
+  //   setSelected(selected)
+  //   props.handleSelect(selected)
+  // }
+    // <Listbox value={selected} onChange={selected => customChange(selected)} by="id" name={name}>
   return (
-    <Listbox value={selected} onChange={selected => customChange(selected)} by="id" name={name}>
+    <Listbox value={selected} onChange={setSelected} name={name}>
       {({open}) => (
         /* TODO style du bloc */
         <div className="">
@@ -23,7 +24,7 @@ export default function Select({items, startItem, name,...props}) {
               className="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm">
               <span className="flex items-center">
                 {/*<img src={selected.avatar} alt="" className="h-6 w-6 flex-shrink-0 rounded-full"/>*/}
-                <span className="ml-3 h-6 block truncate">{selected.name}</span>
+                <span className="ml-3 h-6 block truncate">{selected}</span>
               </span>
               <span
                 className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
@@ -42,13 +43,14 @@ export default function Select({items, startItem, name,...props}) {
                 className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                 {items.map((item) => (
                   <Listbox.Option
-                    key={item.id}
+                    key={item}
                     className={({active}) =>
                       classNames(
                         active ? 'text-white bg-indigo-600' : 'text-gray-900',
                         'relative cursor-default select-none py-2 pl-3 pr-9'
                       )
                     }
+
                     value={item}
                   >
                     {({selected, active}) => (
@@ -57,7 +59,7 @@ export default function Select({items, startItem, name,...props}) {
                           {/*<img src={person.avatar} alt=""*/}
                           {/*     className="h-6 w-6 flex-shrink-0 rounded-full"/>*/}
                           <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')}>
-                                            {item.name}
+                                            {item}
                                               </span>
                         </div>
 

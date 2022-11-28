@@ -10,7 +10,27 @@ import {Inertia} from "@inertiajs/inertia";
 import SelectInput from "@/Components/SelectInput";
 
 export default function Register() {
-  const {grades} = usePage().props;
+  // const {grades} = usePage().props;
+  const grades = [
+    '5e1',
+    '5e2',
+    '5e3',
+    '5e4',
+    '5e5',
+    '5e6',
+    '4e1',
+    '4e2',
+    '4e3',
+    '4e4',
+    '4e5',
+    '4e6',
+    '3e1',
+    '3e2',
+    '3e3',
+    '3e4',
+    '3e5',
+    '3e6'
+  ]
 
     const { data, setData, post, processing, errors, reset } = useForm({
         firstname: '',
@@ -73,23 +93,23 @@ export default function Register() {
                     <InputError message={errors.lastname} className="mt-2" />
                 </div>
                 {/*TODO grade select */}
-            {/*  <SelectInput
-                className="w-full pb-8 pr-6 lg:w-1/2"
-                label="Classe"
-                name="grade"
-                errors={errors.grades}
-                value={grade}
-                onChange={e => setData(grade, e.target.value)}
-              >
-                {grades.map(grade=>{
-                  <option value={grade.id}>{grade.name}</option>
-                })}
-              </SelectInput>*/}
-              {/*{grades.map(grade=> <span>{grade.name}</span>*/}
-              {/*)}*/}
+              {/*<SelectInput*/}
+              {/*  className="w-full pb-8 pr-6 lg:w-1/2"*/}
+              {/*  label="Classe"*/}
+              {/*  name="grade"*/}
+              {/*  errors={errors.grades}*/}
+              {/*  value={grade}*/}
+              {/*  onChange={e => setData(grade, e.target.value)}*/}
+              {/*>*/}
+              {/*  {grades.map(grade=>{*/}
+              {/*    <option value={grade.id}>{grade.name}</option>*/}
+              {/*  })}*/}
+              {/*</SelectInput>*/}
+              {/*{grades.map(grade=> <span>{grade.name}</span>
+              )}*/}
               <div className="mt-4">
-                <Select handleSelect={selected=>setData({grade:selected})} items={grades}
-                        startItem={data.grade} name="grade"
+                {/*<Select handleSelect={e=>setData("grade",e.target.value)} items={grades}*/}
+                <Select items={grades} startItem={data.grade} name="grade"
                 />
                 <InputError message={errors.grade} className="mt-2" />
 

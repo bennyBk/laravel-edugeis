@@ -20,7 +20,7 @@ export default function UserShow({show}) {
             <span className="block text-indigo-600">{show.title}</span>
           </h2>
           {/*<div className='text-right py-1'>
-            <div class=""><small className="ml-2 text-sm text-gray-600">{FormatDate(show.date)}</small>
+            <div className=""><small className="ml-2 text-sm text-gray-600">{FormatDate(show.date)}</small>
 
             </div>
           </div>*/}

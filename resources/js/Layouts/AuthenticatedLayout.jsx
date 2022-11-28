@@ -132,15 +132,15 @@ export default function Authenticated({ auth, header, children }) {
             {/*https://inertiajs.com/shared-data#flash-messages*/}
             {flash.message && (
                 <Notification color="indigo" message={flash.message} type="message" />
-                // <div class="alert">{flash.message}</div>
+                // <div className="alert">{flash.message}</div>
             )}
             {flash.error && (
                 <Notification color="red" message={flash.error} type="error" />
-                // <div class="alert">{flash.error}</div>
+                // <div className="alert">{flash.error}</div>
             )}
             {flash.success && (
                 <Notification color="blue" message={flash.success} type="success" />
-                // <div class="success">{flash.success}</div>
+                // <div className="success">{flash.success}</div>
             )}
             {children}
         </div>

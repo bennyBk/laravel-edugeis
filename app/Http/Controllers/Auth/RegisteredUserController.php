@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Grade;
+//use App\Models\Grade;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -22,9 +22,9 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        $grades = Grade::all();
-        $grades->toArray();
-        return Inertia::render('Auth/Register', ["grades" => $grades]);
+        //$grades = Grade::all();
+        //$grades->toArray();
+        return Inertia::render('Auth/Register');
     }
 
     /**
@@ -46,16 +46,16 @@ class RegisteredUserController extends Controller
         ]);
 
         // retrouver la classe =
-        if($request->get('grade')){
-            $gradeId = $request->get('grade')['id'];
-            $grade = Grade::findOrFail($gradeId);
+        //if($request->get('grade')){
+        //    $gradeId = $request->get('grade')['id'];
+        //    $grade = Grade::findOrFail($gradeId);
             //$validatedData['grade_id'] = $grade->id;
-        }
+        //}
         //dd($request);
 
         $user = User::create([
-            'class' => $grade->name,
-            'grade_id' => $grade->id,
+            'class' => $request->get('grade'),
+            'grade_id' => 0,
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
             'email' => $request->email,

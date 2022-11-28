@@ -44,13 +44,13 @@ export default function Show({show}) {
     <div className="p-6 flex space-x-2">
       {/* TODO ICON SHOW */}
       <div className="flex-1">
-        <div class="md:flex border-b-2 items-end">
+        <div className="md:flex border-b-2 items-end">
           <h2 className=" flex-1 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             {/*<span className="block">Bienvenue</span>*/}
             <span className="block text-indigo-600">{show.title}</span>
           </h2>
           {/*<div className='text-right py-1'>
-            <div class=""><small className="ml-2 text-sm text-gray-600">{FormatDate(show.date)}</small>
+            <div className=""><small className="ml-2 text-sm text-gray-600">{FormatDate(show.date)}</small>
 
             </div>
           </div>*/}
