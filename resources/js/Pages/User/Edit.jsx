@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import GuestLayout from '@/Layouts/GuestLayout';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
@@ -7,18 +6,18 @@ import TextInput from '@/Components/TextInput';
 import Select from '@/Components/Select';
 import {Head, Link, useForm} from '@inertiajs/inertia-react';
 import {Inertia} from "@inertiajs/inertia";
-import SelectInput from "@/Components/SelectInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import {grades} from "@/Components/Helpers";
 
 export default function Edit(props) {
-  // console.log(props);
+  console.log(grades);
   const {auth} = props;
   const {user} = auth;
-  const {grades} = props;
-  const initGrade = grades.find(grade => grade.id === user.grade_id);
-  // console.log(grades.find(grade => grade.id === user.grade_id));
+  console.log(user.class);
+  const initGrade = grades.find(grade => grade === auth.user.class);
+  console.log(grades.find(grade => grade === user.class));
   const {data, setData, post,put, processing, errors, reset} = useForm({
-    grade: initGrade || '',
+    class: initGrade || '',
     password_confirmation: '',
     firstname: user.firstname || '',
     lastname: user.lastname || '',
@@ -111,8 +110,7 @@ export default function Edit(props) {
               {/*{grades.map(grade=> <span>{grade.name}</span>*/}
               {/*)}*/}
               <div className="mt-4">
-                <Select handleSelect={selected=>setData({grade:selected})} items={grades}
-                                            startItem={data.grade} name="grade"
+                <Select items={grades} startItem={data.class} name="class"
               /></div>
 
               {/*<input type="hidden" name="grade" value="1"  />*/}

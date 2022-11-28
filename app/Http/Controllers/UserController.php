@@ -65,7 +65,7 @@ class UserController extends Controller
         $validator = Validator::make($request->json()->all(), [
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
-            'class' => 'required|string|max:4',
+            //'grade' => 'required|string|max:4',
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'password' => ['nullable','string','min:8',Rules\Password::defaults()]
         ]);
@@ -77,14 +77,15 @@ class UserController extends Controller
             //->withInput();
         //}
         $validatedData = $validator->validated();
+        dd($validatedData);
         $validatedData = array_filter($validatedData);
         // retrouver la classe =
-        if($request->get('grade')){
-            $gradeId = $request->get('grade')['id'];
-            $grade = Grade::findOrFail($gradeId);
-            $validatedData['grade_id'] = $grade->id;
-            $validatedData['class'] = $grade->name;
-        }
+        //if($request->get('grade')){
+        //    $gradeId = $request->get('grade')['id'];
+        //    $grade = Grade::findOrFail($gradeId);
+        //    $validatedData['grade_id'] = $grade->id;
+        //    $validatedData['class'] = $grade->name;
+        //}
         if(isset($validatedData['password']))
             $validatedData['password'] = Hash::make($validatedData['password']);
 
@@ -95,9 +96,7 @@ class UserController extends Controller
 
     public function edit()
     {
-        return Inertia::render('User/Edit', [
-            'grades' => Grade::all(),
-        ]);
+        return Inertia::render('User/Edit');
 
     }
 

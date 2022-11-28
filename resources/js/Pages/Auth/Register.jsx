@@ -6,31 +6,14 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import Select from '@/Components/Select';
 import {Head, Link, useForm, usePage} from '@inertiajs/inertia-react';
+import {grades} from "@/Components/Helpers";
+
 import {Inertia} from "@inertiajs/inertia";
 import SelectInput from "@/Components/SelectInput";
 
 export default function Register() {
   // const {grades} = usePage().props;
-  const grades = [
-    '5e1',
-    '5e2',
-    '5e3',
-    '5e4',
-    '5e5',
-    '5e6',
-    '4e1',
-    '4e2',
-    '4e3',
-    '4e4',
-    '4e5',
-    '4e6',
-    '3e1',
-    '3e2',
-    '3e3',
-    '3e4',
-    '3e5',
-    '3e6'
-  ]
+  // const grades = grades;
 
     const { data, setData, post, processing, errors, reset } = useForm({
         firstname: '',
@@ -59,9 +42,25 @@ export default function Register() {
     return (
         <GuestLayout>
             <Head title="Register" />
+          <div className="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md"
+               role="alert">
+            <div className="flex">
+              <div className="py-1">
+                <svg className="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg"
+                     viewBox="0 0 20 20">
+                  <path
+                    d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/>
+                </svg>
+              </div>
+              <div>
+                <p className="font-bold">Nous respectons votre vie privée</p>
+                <p className="text-sm">Les données renseignées servent exclusivement aux réservations pour le parcours du spectateur. Elles ne seront pas transmises à un tiers et seront effacées à la fin de l'année scolaire.</p>
+              </div>
+            </div>
+          </div>
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel forInput="firstname" value="Prénom" />
+                    <InputLabel forInput="firstname" value="Prénom de l'élève" />
 
                     <TextInput
                         type="text"
@@ -76,8 +75,8 @@ export default function Register() {
 
                     <InputError message={errors.firstname} className="mt-2" />
                 </div>
-                <div>
-                    <InputLabel forInput="lastname" value="Nom" />
+                <div className="mt-4">
+                    <InputLabel forInput="lastname" value="Nom de l'élève" />
 
                     <TextInput
                         type="text"
@@ -117,7 +116,7 @@ export default function Register() {
 
               {/*<input type="hidden" name="grade" value="1"  />*/}
                 <div className="mt-4">
-                    <InputLabel forInput="email" value="Email" />
+                    <InputLabel forInput="email" value="Email du parent" />
 
                     <TextInput
                         type="email"
@@ -133,7 +132,7 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel forInput="password" value="Mot de passe" />
+                    <InputLabel forInput="password" value="Mot de passe (au moins 8 caractères)" />
 
                     <TextInput
                         type="password"

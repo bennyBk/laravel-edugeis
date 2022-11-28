@@ -104,6 +104,12 @@ export default function Authenticated({ auth, header, children }) {
                         <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
                             Dashboard
                         </ResponsiveNavLink>
+                      <ResponsiveNavLink href={route('shows.index')} active={route().current('shows.index')}>
+                        Spectacles
+                      </ResponsiveNavLink>
+                      <ResponsiveNavLink href={route('tickets.index')} active={route().current('tickets.index')}>
+                        Mes places
+                      </ResponsiveNavLink>
                     </div>
 
                     <div className="pt-4 pb-1 border-t border-gray-200">
