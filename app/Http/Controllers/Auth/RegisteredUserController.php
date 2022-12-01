@@ -51,7 +51,6 @@ class RegisteredUserController extends Controller
         //    $grade = Grade::findOrFail($gradeId);
             //$validatedData['grade_id'] = $grade->id;
         //}
-        //dd($request);
 
         $user = User::create([
             'class' => $request->get('grade'),
