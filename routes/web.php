@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ShowController;
 use App\Http\Controllers\TicketController;
+use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -32,29 +33,45 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::resource('shows', ShowController::class)
-    ->only(['index', 'store','update','destroy'])
+    ->only(['index', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
 Route::resource('tickets', TicketController::class)
-    ->only(['index', 'store','update','destroy'])
+    ->only(['index', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
 Route::resource('user.tickets', TicketController::class)
-    ->only(['index', 'store','update','destroy'])
+    ->only(['index', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
 // juste la route pour tester le mail
 Route::get('/confirm',
-function () {
-    //$invoice = App\Models\Invoice::find(1);
-    //return new App\Mail\TIcketsConfirm($invoice);
-    Mail::to(Auth::user()->email)
-        ->send(new App\Mail\TIcketsConfirm());
-    return redirect()->back()->with('success', 'Un email de confirmation vous a été envoyé');
-    //return Inertia::render('Dashboard');
+    function () {
+        //$invoice = App\Models\Invoice::find(1);
+        //return new App\Mail\TIcketsConfirm($invoice);
+        Mail::to(Auth::user()->email)
+            ->send(new App\Mail\TIcketsConfirm());
+        return redirect()->back()->with('success', 'Un email de confirmation vous a été envoyé');
+        //return Inertia::render('Dashboard');
 
-})->middleware(['auth', 'verified'])->name('tickets.confirm');
-Route::get('mon_compte',[UserController::class, 'edit'])->name('user.edit')->middleware('auth','verified');
-Route::put('mon_compte',[UserController::class, 'update'])->name('user.update')->middleware('auth','verified');
+    })->middleware(['auth', 'verified'])->name('tickets.confirm');
+Route::get('mon_compte', [UserController::class, 'edit'])->name('user.edit')->middleware('auth', 'verified');
+Route::put('mon_compte', [UserController::class, 'update'])->name('user.update')->middleware('auth', 'verified');
 //Route::group();
-require __DIR__.'/auth.php';
+Route::get('/admin', function () {
+    //$users = User::with('tickets.ticketType')->get();
+    $users = User::all();
+    $users = $users->filter(fn($user)=>$user->tickets->count())->each(function ($user) {
+            $user->owes = 0;
+                $user->tickets->map(function($ticket) use ($user) {
+                preg_match('/\d+/', $ticket->ticketType->type,$matches);
+                if($matches) $user->owes +=$matches[0];
+            });
+            $user->shows = $user->tickets->groupBy('show_id');
+            return $user;
+    });
+    return view('admin-dashboard')->with(['users' => $users]);
+})->middleware(['auth', 'verified']);
+
+
+require __DIR__ . '/auth.php';
