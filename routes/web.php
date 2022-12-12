@@ -70,6 +70,11 @@ Route::get('/admin', function () {
             $user->shows = $user->tickets->groupBy('show_id');
             return $user;
     });
+    //$users = $users->sortBy([
+    //    ['class', 'desc'],
+    //    ['lastname', 'asc']
+    //])->all();
+    //dd($users);
     return view('admin-dashboard')->with(['users' => $users]);
 })->middleware(['auth', 'verified']);
 
