@@ -47,6 +47,14 @@ services:
         - ./docker/dev/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
       networks:
         - laravel
+    mailhog:
+      image: mailhog/mailhog:latest
+      restart: always
+      ports:
+        - 1025:1025
+        - 8025:8025
+      networks:
+        - laravel
 
 networks:
   laravel:

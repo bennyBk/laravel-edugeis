@@ -14,7 +14,7 @@ export default function Welcome(props) {
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
               <span className="block">Bienvenue {props.auth.user && props.auth.user.firstname + ' ' + props.auth.user.lastname}</span>
               <span className="block text-indigo-600">Parcours du spectateur</span>
-              <span className="block text-orange-600">2022-23</span>
+              <span className="block text-orange-600">2023-24</span>
             </h2>
             {!props.auth.user && (
               <>
