@@ -25,6 +25,7 @@ export const grades = [
   '4e3',
   '4e4',
   '4e5',
+  '4e6',
   '3e1',
   '3e2',
   '3e3',
